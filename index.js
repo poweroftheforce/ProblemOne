@@ -62,7 +62,12 @@ function mutateArray(a) {
       if (typeof obj[key] === 'object' && obj[key] !== null && !Array.isArray(obj[key])) {
         Object.assign(flattened, flattenObject(obj[key]));
       } else {
-        flattened[key] = obj[key];
+        if (Array.isArray(obj[key])) {
+          const reducer = (acc, val) => acc + val;
+          flattened['some_total'] = obj[key].reduce(reducer, 0);
+        } else {
+          flattened[key] = obj[key];
+        }
       }
     });
     return flattened;
