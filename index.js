@@ -56,7 +56,22 @@ var arr = [
 ];
 
 function mutateArray(a) {
-    return a;
+  const flattenObject = (obj) => {
+    const flattened = {};
+    Object.keys(obj).forEach((key) => {
+      if (typeof obj[key] === 'object' && obj[key] !== null && !Array.isArray(obj[key])) {
+        Object.assign(flattened, flattenObject(obj[key]));
+      } else {
+        flattened[key] = obj[key];
+      }
+    });
+    return flattened;
+  };
+  let b = [];
+  a.forEach(v => {
+    b.push(flattenObject(v))
+  });
+  return b;
 }
 
 $(document).ready(function() {
