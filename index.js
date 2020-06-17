@@ -74,7 +74,9 @@ function mutateArray(a) {
   };
   let b = [];
   a.forEach(v => {
-    b.push(flattenObject(v))
+    if (v && v.guest_type && v.guest_type === 'guest') {
+      b.push(flattenObject(v))
+    }
   });
   return b;
 }
